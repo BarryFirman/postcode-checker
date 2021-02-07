@@ -1,0 +1,2 @@
+class PostcodeAllowList < ApplicationRecord
+end
