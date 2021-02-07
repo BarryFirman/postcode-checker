@@ -1,0 +1,3 @@
+class PostcodeAllowListsController < ApplicationController
+
+end
