@@ -18,6 +18,11 @@ RSpec.describe PostcodeAllowList, type: :model do
       postcode = PostcodeAllowList.last
       expect { postcode.destroy }.to change { PostcodeAllowList.count }.by(-1)
     end
+    it 'should not be valid with duplicate postcode' do
+      valid_postcode.save
+      postcode = PostcodeAllowList.last.postcode
+      expect(PostcodeAllowList.new(postcode: postcode)).to_not be_valid
+    end
   end
 
   context 'invalid postcode' do
