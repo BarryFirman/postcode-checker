@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+<h1>Post Code Allow List</h1>
+<p><%= link_to 'Create New Allowed Postcode', new_postcode_allow_list_path %></p>
+
+<table>
+  <% @postcode_allow_lists.each do |pal| %>
+    <tr>
+      <td><%= pal.postcode %></td>
+      <td><%= link_to 'Delete', pal, method: :delete, data: { confirm: 'Please confirm you with to delete this Post Code.' } %></td>
+    </tr>
+   <% end %>
+</table>

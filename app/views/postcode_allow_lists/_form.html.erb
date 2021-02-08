@@ -1,0 +1,21 @@
+<%= form_with(model: postcode_allow_list) do |form| %>
+  <% if postcode_allow_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(postcode_allow_list.errors.count, 'error') %> stopped this record from being saved</h2>
+      <ul>
+        <% postcode_allow_list.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :postcode %>
+    <%= form.text_field :postcode %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

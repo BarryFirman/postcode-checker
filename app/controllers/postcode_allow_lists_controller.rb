@@ -13,10 +13,11 @@ class PostcodeAllowListsController < ApplicationController
   end
 
   def create
-    postcode_allow_list = PostcodeAllowList.new(postcode_allow_lists_params)
-    if postcode_allow_list.save
+    @postcode_allow_list = PostcodeAllowList.new(postcode_allow_lists_params)
+    if @postcode_allow_list.save
       redirect_to postcode_allow_lists_path, notice: 'Post Code successfully created.'
     else
+
       render :new, notice: 'Could not create Post Code.'
     end
   end
@@ -30,7 +31,7 @@ class PostcodeAllowListsController < ApplicationController
   private
 
   def postcode_allow_lists_params
-    params.require(:postcode_allow_lists).permit(:id, :postcode)
+    params.require(:postcode_allow_list).permit(:id, :postcode)
   end
 
   def postcode_allow_list
