@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :postcode_allow_list do
     trait :valid do
-      postcode { 'SE1 7QD' }
+      postcode { 'SH24 1AA' }
     end
     trait :invalid do
       postcode { 'invalid_postcode' }
