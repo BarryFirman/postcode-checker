@@ -23,6 +23,20 @@ RSpec.describe PostcodeAllowList, type: :model do
       postcode = PostcodeAllowList.last.postcode
       expect(PostcodeAllowList.new(postcode: postcode)).to_not be_valid
     end
+
+    context 'entering postcode in lower or mixed case' do
+      it 'should validate against uppercase entries' do
+        valid_postcode.save
+        postcode = PostcodeAllowList.last.postcode
+        expect(PostcodeAllowList.new(postcode: postcode.downcase)).to_not be_valid
+      end
+      it 'should be changed to uppercase before being saved.' do
+        postcode = valid_postcode.postcode
+        valid_postcode.postcode.downcase!
+        valid_postcode.save
+        expect(PostcodeAllowList.last.postcode).to eq(postcode)
+      end
+    end
   end
 
   context 'invalid postcode' do
