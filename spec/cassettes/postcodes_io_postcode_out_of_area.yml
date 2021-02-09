@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.postcodes.io/postcodes/IP130SR
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.postcodes.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 09 Feb 2021 15:31:46 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=de3ae46bd78b4eeb77d30a0c8136eea331612884706; expires=Thu, 11-Mar-21
+        15:31:46 GMT; path=/; domain=.postcodes.io; HttpOnly; SameSite=Lax
+      X-Gnu:
+      - Michael J Blanchard
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"380-A4eA6YaQH8F2DCmRckjVPwEElhw"
+      Cf-Cache-Status:
+      - HIT
+      Age:
+      - '635411'
+      Cf-Request-Id:
+      - '0829049c060000c85fe6b9f000000001'
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report?s=7N%2FxUGljPPNE0umJQwL7CwkG%2FxCwnkT6%2FaJ8LSkTAu2EFjjph68PoDCsQEqpjqNw8NNxwsu2B0TR3ysh%2FXKXslnWiXTnSSF23S6fceZlJDWU"}]}'
+      Nel:
+      - '{"report_to":"cf-nel","max_age":604800}'
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 61eea3a66d0ac85f-AMS
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":200,"result":{"postcode":"IP13 0SR","quality":1,"eastings":630405,"northings":256202,"country":"England","nhs_ha":"East
+        of England","longitude":1.366882,"latitude":52.155987,"european_electoral_region":"Eastern","primary_care_trust":"Suffolk","region":"East
+        of England","lsoa":"Suffolk Coastal 005D","msoa":"Suffolk Coastal 005","incode":"0SR","outcode":"IP13","parliamentary_constituency":"Central
+        Suffolk and North Ipswich","admin_district":"East Suffolk","parish":"Wickham
+        Market","admin_county":"Suffolk","admin_ward":"Wickham Market","ced":"Wickham","ccg":"NHS
+        Ipswich and East Suffolk","nuts":"Suffolk","codes":{"admin_district":"E07000244","admin_county":"E10000029","admin_ward":"E05012760","parish":"E04009478","parliamentary_constituency":"E14000624","ccg":"E38000086","ccg_id":"06L","ced":"E58001457","nuts":"UKH14","lsoa":"E01030220","msoa":"E02006291","lau2":"E05010456"}}}'
+  recorded_at: Tue, 09 Feb 2021 15:31:46 GMT
+recorded_with: VCR 6.0.0
