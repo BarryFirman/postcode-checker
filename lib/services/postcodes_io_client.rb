@@ -6,16 +6,12 @@ module Services
   class PostcodesIoClient
 
     INVALID_POSTCODE_FORMAT_MSG = 'Incorrect Postcode Format'
-    UNREACHABLE_ERROR_MSG = 'Checking Service Currently Unavailable'
+    UNREACHABLE_ERROR_MSG = 'Unable to check this postcode at this time.'
 
-    attr_reader :postcode
-
-    def initialize(postcode:, url: 'https://api.postcodes.io', uri: '/postcodes/',
-                   allowed_lsoas: %w[Southwark Lambeth])
+    def initialize(postcode:, url: 'https://api.postcodes.io', uri: '/postcodes/')
       @postcode = UKPostcode.parse(postcode)
       @url = url.freeze
       @uri = uri.freeze
-      @allowed_lsoas = allowed_lsoas.freeze
     end
 
     def call_api
@@ -35,7 +31,7 @@ module Services
     private
 
     def uri_postcode
-      postcode.to_s.gsub(' ', '')
+      @postcode.to_s.gsub(' ', '')
     end
 
     def return_statement(status:, message:, data:)

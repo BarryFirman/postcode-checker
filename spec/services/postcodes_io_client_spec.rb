@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Services::PostcodesIoClient, type: :model do
 
   let(:valid_postcode_allow_list) { build(:postcode_allow_list, :valid) }
-  let(:valid_postcode) { described_class.new(postcode: 'SE1 7QD')}
-  let(:invalid_postcode) { described_class.new(postcode: 'invalid')}
+  let(:valid_postcode) { described_class.new(postcode: 'SE1 7QD') }
+  let(:invalid_postcode) { described_class.new(postcode: 'invalid') }
   let(:allowed_postcode) { described_class.new(postcode: valid_postcode_allow_list.postcode) }
   let(:api_down) { described_class.new(postcode: valid_postcode_allow_list.postcode, url: 'https://postcodes') }
 
