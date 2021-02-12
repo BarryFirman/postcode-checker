@@ -9,33 +9,28 @@ RSpec.describe 'PostcodeChecker', type: :request do
 
   describe 'POST /check' do
     it 'is a successful response for check' do
-      post check_post_code_url, params: { postcode_checker: valid_postcode }
+      post check_postcode_url, params: { postcode_checker: in_area_postcode }
       expect(response).to be_successful
     end
   end
 
   describe 'responses' do
     context 'valid data' do
-      it 'should return success and postcode is in the area' do
-
-      end
-
       it 'should return success for allowed postcode.' do
-
+        post check_postcode_url, params: { postcode_checker: allowed_postcode }
+        expect(response).to be_successful
       end
 
-      it 'should return postcode is not in the area' do
-
+      it 'should return success for out of area postcode'do
+        post check_postcode_url, params: { postcode_checker: out_area_postcode }
+        expect(response).to be_successful
       end
     end
 
     context 'invalid data' do
-      it 'should return failure for unreachable service' do
-
-      end
-
-      it 'should return failure for invalid postcode' do
-
+      it 'should return success for invalid postcode' do
+        post check_postcode_url, params: { postcode_checker: invalid_postcode }
+        expect(response).to be_successful
       end
     end
   end
