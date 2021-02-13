@@ -2,22 +2,21 @@
 
 # Postcodes to be treated as valid for searches
 class PostcodeAllowList < ApplicationRecord
-  require 'uk_postcode'
 
-  validate :ensure_postcode_format
+  validate :ensure_valid_postcode
+  before_save :shape_postcode
+  before_create :shape_postcode
   validates_uniqueness_of :postcode, case_sensitive: false
-  before_save :upcase_postcode
 
 
 
   private
 
-  def ensure_postcode_format
-    pc = UKPostcode.parse(postcode)
-    errors.add(:postcode, 'invalid postcode format') unless pc.valid?
+  def ensure_valid_postcode
+    errors.add(:postcode, 'invalid postcode format') unless Services::PostcodeValidator.valid_format? postcode
   end
 
-  def upcase_postcode
-    postcode.upcase!
+  def shape_postcode
+    self.postcode = Services::PostcodeValidator.shape_postcode postcode
   end
 end

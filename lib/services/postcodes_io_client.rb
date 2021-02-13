@@ -9,13 +9,14 @@ module Services
     UNREACHABLE_ERROR_MSG = 'System Error: Unable to check this postcode at this time.'
 
     def initialize(postcode:, url: 'https://api.postcodes.io', uri: '/postcodes/')
-      @postcode = UKPostcode.parse(postcode)
+      @postcode = Services::PostcodeValidator.shape_postcode postcode
       @url = url.freeze
       @uri = uri.freeze
     end
 
     def call_api
-      return return_statement(status: 'failed', message: INVALID_POSTCODE_MSG, data: '') unless @postcode.valid?
+      valid_format = Services::PostcodeValidator.valid_format? @postcode
+      return return_statement(status: 'failed', message: INVALID_POSTCODE_MSG, data: '') unless valid_format
 
       uri = URI(@url)
       uri.path = "#{@uri}#{uri_postcode}"

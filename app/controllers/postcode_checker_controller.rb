@@ -38,7 +38,7 @@ class PostcodeCheckerController < ApplicationController
   end
 
   def shape_postcode
-    @postcode = UKPostcode.parse(params[:postcode_checker][:postcode]).to_s
+    @postcode = Services::PostcodeValidator.shape_postcode postcode_checker_params[:postcode]
   end
 
   def ensure_params_present
