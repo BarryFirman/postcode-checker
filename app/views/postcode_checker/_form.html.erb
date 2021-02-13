@@ -1,0 +1,10 @@
+<%= form_with( scope: 'postcode_checker', url: check_postcode_path) do |form| %>
+  <div class="field">
+    <%= form.label :postcode %>
+    <%= form.text_field :postcode %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Check Postcode' %>
+  </div>
+<% end %>

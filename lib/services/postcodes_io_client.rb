@@ -5,8 +5,8 @@ require 'uk_postcode'
 module Services
   class PostcodesIoClient
 
-    INVALID_POSTCODE_FORMAT_MSG = 'Incorrect Postcode Format'
-    UNREACHABLE_ERROR_MSG = 'Unable to check this postcode at this time.'
+    INVALID_POSTCODE_MSG = 'Error: Postcode Not Found'
+    UNREACHABLE_ERROR_MSG = 'System Error: Unable to check this postcode at this time.'
 
     def initialize(postcode:, url: 'https://api.postcodes.io', uri: '/postcodes/')
       @postcode = UKPostcode.parse(postcode)
@@ -15,7 +15,7 @@ module Services
     end
 
     def call_api
-      return return_statement(status: 'failed', message: INVALID_POSTCODE_FORMAT_MSG, data: '') unless @postcode.valid?
+      return return_statement(status: 'failed', message: INVALID_POSTCODE_MSG, data: '') unless @postcode.valid?
 
       uri = URI(@url)
       uri.path = "#{@uri}#{uri_postcode}"

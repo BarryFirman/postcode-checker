@@ -1,16 +1,15 @@
 class PostcodeCheckerController < ApplicationController
-  before_action :ensure_params_present
-  before_action :ensure_postcode
+  before_action :ensure_params_present, only: :check
+  before_action :ensure_postcode, only: :check
+  before_action :shape_postcode, only: :check
+
+  def new; end
 
   def check
-    checker = Services::PostcodeChecker.new(postcode: postcode_checker_params[:postcode])
+    checker = Services::PostcodeChecker.new(postcode: @postcode)
     @response = checker.check_postcode
-    @notice = if @response[:status] == 'success'
-                "We can#{'not' unless @response[:in_area]} service area:  #{postcode_checker_params[:postcode]}"
-              else
-                @response[:message]
-              end
-    render :check, notice: @notice
+
+    return_statement
   end
 
   private
@@ -19,16 +18,41 @@ class PostcodeCheckerController < ApplicationController
     params.require(:postcode_checker).permit(:postcode)
   end
 
+  def standard_notice
+    @notice = if @response[:status] == 'success'
+                if @response[:in_area] == true
+                  "Yes! We can service area:  #{@postcode}"
+                else
+                  "Sorry. We cannot service area: #{@postcode}"
+                end
+              else
+                @response[:message]
+              end
+  end
+
+  def return_statement
+    standard_notice if @notice.nil?
+
+    flash[:notice] = @notice
+    redirect_to root_path
+  end
+
+  def shape_postcode
+    @postcode = UKPostcode.parse(params[:postcode_checker][:postcode]).to_s
+  end
+
   def ensure_params_present
     return if params[:postcode_checker].present?
 
-    render :check, notice: 'Error: Please ensure you have entered a postcode.'
+    @notice = 'System Error: Apologies but something went wrong.'
+    return_statement
   end
 
   def ensure_postcode
     return if params[:postcode_checker][:postcode].present?
 
-    render :check, notice: 'Error: Please ensure you have entered a postcode.'
+    @notice = 'Error: Please ensure you have entered a postcode.'
+    return_statement
   end
 
 end

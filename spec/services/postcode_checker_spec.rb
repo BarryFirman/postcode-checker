@@ -38,7 +38,7 @@ RSpec.describe Services::PostcodeChecker, type: :model do
     it 'should return failure for invalid postcode' do
       VCR.use_cassette('postcodes_io_invalid_postcode') do
         response = invalid_postcode.check_postcode
-        expect(response).to eq({ status: 'failed', message: Services::PostcodesIoClient::INVALID_POSTCODE_FORMAT_MSG, in_area: nil })
+        expect(response).to eq({ status: 'failed', message: Services::PostcodesIoClient::INVALID_POSTCODE_MSG, in_area: nil })
       end
     end
   end

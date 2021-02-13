@@ -13,7 +13,6 @@ module Services
 
       pic = Services::PostcodesIoClient.new(postcode: @postcode)
       response = pic.call_api
-
       return_statement(status: response[:status],
                        message: response[:message],
                        in_area: in_area(response))

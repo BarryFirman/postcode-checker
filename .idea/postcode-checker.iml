@@ -943,20 +943,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="rack-mini-profiler (vbundled(2.3.1)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../vendor/postcode-checker/ruby/2.7.0/gems/rack-mini-profiler-2.3.1/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../vendor/postcode-checker/ruby/2.7.0/gems/rack-mini-profiler-2.3.1/lib" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="rack-proxy (vbundled(0.6.5)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -1703,7 +1689,6 @@
         <option value="mailer" />
         <option value="migration" />
         <option value="model" />
-        <option value="rack_profiler:install" />
         <option value="resource" />
         <option value="rspec:channel" />
         <option value="rspec:controller" />
@@ -1757,7 +1742,6 @@
         <option value="mailer" />
         <option value="migration" />
         <option value="model" />
-        <option value="rack_profiler:install" />
         <option value="resource" />
         <option value="rspec:channel" />
         <option value="rspec:controller" />
@@ -1980,6 +1964,7 @@
           <RakeTaskImpl description="Run all specs in spec directory (excluding plugin specs)" fullCommand="spec" id="spec" />
           <RakeTaskImpl id="spec">
             <subtasks>
+              <RakeTaskImpl description="Run the code examples in spec/features" fullCommand="spec:features" id="features" />
               <RakeTaskImpl description="Run the code examples in spec/helpers" fullCommand="spec:helpers" id="helpers" />
               <RakeTaskImpl description="Run the code examples in spec/models" fullCommand="spec:models" id="models" />
               <RakeTaskImpl description="Run the code examples in spec/requests" fullCommand="spec:requests" id="requests" />
