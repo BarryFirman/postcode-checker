@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "PostcodeAllowLists", type: :request do
 
-
+  let(:pal) { create(:postcode_allow_list, :valid) }
   let(:valid_attributes) { { postcode: 'SE1 7QD' } }
   let(:invalid_attributes) { { postcode: 'invalidpostcode' } }
 
@@ -35,6 +35,58 @@ RSpec.describe "PostcodeAllowLists", type: :request do
       end
     end
 
+    describe 'GET /edit' do
+      it 'is a successful response for edit' do
+        get edit_postcode_allow_list_url pal
+        expect(response).to be_successful
+      end
+    end
+
+    describe '/update' do
+      let(:new_valid_postcode) { 'IP13 0SR' }
+      let(:new_invalid_postcode) { 'invalid '}
+
+      context 'using PATCH'do
+        context 'with valid parameters' do
+          it 'updates the given entry' do
+            list = pal
+            patch postcode_allow_list_url(list), params: { postcode_allow_list: { postcode: new_valid_postcode } }
+            expect(response).to redirect_to(postcode_allow_lists_url)
+            expect(list.reload.postcode).to eq(new_valid_postcode)
+          end
+        end
+        context 'with invalid parameters' do
+          it 'does not update given entry' do
+            list = pal
+            before_password = list.postcode
+            patch postcode_allow_list_url(list), params: { postcode_allow_list: { postcode: new_invalid_postcode } }
+            expect(response).to render_template(:edit)
+            expect(list.reload.postcode).to eq(before_password)
+          end
+        end
+      end
+
+      context 'using PUT' do
+        context 'with valid parameters' do
+          it 'updates the given entry' do
+            list = pal
+            put postcode_allow_list_url(list), params: { postcode_allow_list: { postcode: new_valid_postcode } }
+            expect(response).to redirect_to(postcode_allow_lists_url)
+            expect(list.reload.postcode).to eq(new_valid_postcode)
+          end
+        end
+        context 'with invalid parameters' do
+          it 'does not update given entry' do
+            list = pal
+            before_password = list.postcode
+            put postcode_allow_list_url(list), params: { postcode_allow_list: { postcode: new_invalid_postcode } }
+            expect(response).to render_template(:edit)
+            expect(list.reload.postcode).to eq(before_password)
+          end
+        end
+      end
+      end
+
     describe 'DELETE /destroy' do
       context 'with valid data' do
         it 'destroys the requested PostcodeAllowList' do
@@ -65,7 +117,6 @@ RSpec.describe "PostcodeAllowLists", type: :request do
           expect(response).to redirect_to(postcode_allow_lists_url)
         end
       end
-
     end
 
     context 'with invalid parameters' do

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PostcodeAllowListsController < ApplicationController
-  before_action :ensure_postcode_allow_list, only: %i[destroy]
-  before_action :postcode_allow_list, only: %i[destroy]
+  before_action :ensure_postcode_allow_list, only: %i[ destroy]
+  before_action :postcode_allow_list, only: %i[edit update destroy]
 
   def index
     @postcode_allow_lists = PostcodeAllowList.all
@@ -19,6 +19,17 @@ class PostcodeAllowListsController < ApplicationController
     else
 
       render :new, notice: 'Could not create Post Code.'
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @postcode_allow_list.update(postcode_allow_lists_params)
+      flash[:notice] = 'Postcode successfully updated.'
+      redirect_to postcode_allow_lists_url
+    else
+      render :edit
     end
   end
 
