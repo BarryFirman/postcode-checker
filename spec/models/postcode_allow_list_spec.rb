@@ -38,6 +38,16 @@ RSpec.describe PostcodeAllowList, type: :model do
         expect(PostcodeAllowList.last.postcode).to eq(postcode)
       end
     end
+    context 'updating a postcode' do
+      it 'should update the postcode' do
+        valid_postcode.save
+        pal = PostcodeAllowList.first
+        new_postcode = 'IP13 0SR'
+        pal.update postcode: new_postcode
+
+        expect(pal.reload.postcode).to eq(new_postcode)
+      end
+    end
   end
 
   context 'invalid postcode' do
@@ -46,6 +56,45 @@ RSpec.describe PostcodeAllowList, type: :model do
     end
     it 'should not save the postcode' do
       expect { invalid_postcode.save }.to change { PostcodeAllowList.count }.by(0)
+    end
+
+    context 'updating' do
+      it 'should not update an entry with an invalid postcode' do
+        valid_postcode.save
+        pal = PostcodeAllowList.first
+        before_update_postcode = pal.postcode
+        new_postcode = 'invalid'
+        pal.update postcode: new_postcode
+
+        expect(pal.reload.postcode).to eq(before_update_postcode)
+      end
+
+      it 'should not update an entry with a duplicate postcode' do
+        valid_postcode.save
+        pal = PostcodeAllowList.first
+        pal_postcode = pal.postcode
+        second_pal_postcode = 'IP13 0SR'
+        expect do
+          @second_pal = PostcodeAllowList.create! postcode: second_pal_postcode
+        end.to change(PostcodeAllowList, :count).by(1)
+
+        @second_pal.update postcode: pal_postcode
+
+        expect(@second_pal.reload.postcode).to eq(second_pal_postcode)
+      end
+
+      it 'should not update an entry with a duplicate postcode in another case' do
+        valid_postcode.save
+        pal = PostcodeAllowList.first
+        pal_postcode = pal.postcode
+        second_pal_postcode = 'ip13 0sr'
+        expect do
+          @second_pal = PostcodeAllowList.create! postcode: second_pal_postcode
+        end.to change(PostcodeAllowList, :count).by(1)
+
+        @second_pal.update postcode: pal_postcode
+
+      end
     end
   end
 end
