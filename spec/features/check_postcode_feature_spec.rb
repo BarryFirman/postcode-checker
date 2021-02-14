@@ -23,11 +23,11 @@ RSpec.describe 'Postcode Checker', type: :feature do
 
   scenario 'User checks postcode with invalid postcode' do
     visit root_url
-    fill_in 'Postcode', with: 'INVALID'
+    fill_in 'Postcode', with: 'invalid'
     VCR.use_cassette('postcodes_io_postcode_out_of_area') do
       click_button 'Check Postcode'
     end
-    expect(page).to have_text(Services::PostcodesIoClient::INVALID_POSTCODE_MSG)
+    expect(page).to have_text(format(Services::PostcodesIoClient::INVALID_POSTCODE_MSG.to_s, postcode: 'invalid'))
   end
 
   scenario 'User hits submit with no postcode entry' do

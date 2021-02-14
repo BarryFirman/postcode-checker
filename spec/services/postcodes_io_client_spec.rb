@@ -27,7 +27,7 @@ RSpec.describe Services::PostcodesIoClient, type: :model do
       VCR.use_cassette('postcodes_io_invalid_postcode.yml') do
         response = invalid_postcode.call_api
         expect(response[:status]).to eq('failed')
-        expect(response[:message]).to eq(Services::PostcodesIoClient::INVALID_POSTCODE_MSG)
+        expect(response[:message]).to eq(format(Services::PostcodesIoClient::INVALID_POSTCODE_MSG.to_s, postcode: 'invalid'))
         expect(response[:data]).to be_empty
       end
     end
