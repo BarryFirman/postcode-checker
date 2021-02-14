@@ -13,7 +13,7 @@ class PostcodeAllowList < ApplicationRecord
   private
 
   def ensure_valid_postcode
-    errors.add(:postcode, 'invalid postcode format') unless Services::PostcodeValidator.valid_format? postcode
+    errors.add(:postcode, 'invalid postcode') unless Services::PostcodeValidator.valid_format? postcode
   end
 
   def shape_postcode

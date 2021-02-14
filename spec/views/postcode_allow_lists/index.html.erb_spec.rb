@@ -9,7 +9,7 @@ RSpec.describe 'postcode_allow_lists/index.html.erb', type: :view do
   end
   it 'renders all required elements on index page' do
     render
-    assert_select 'h1', 'Post Code Allow List', 1
+    assert_select 'h1', 'Allowed Postcodes', 1
     assert_select 'p', 1 do
       assert_select 'a[href=?]', '/postcode_allow_lists/new', 1
     end
