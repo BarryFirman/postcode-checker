@@ -1,24 +1,50 @@
-# README
+# Postcode Checker
+An application to check whether a given postcode is within two service areas:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Southwark
+- Lambeth
 
-Things you may want to cover:
+## Usage
+Enter a given postcode and click `Check Postcode`, the application will report whether the postcode is allowed within the service areas above.
 
-* Ruby version
+## Getting Started
+ - Clone the repository
 
-* System dependencies
+- Change directory to the root of repository
 
-* Configuration
+### Prerequisites :
 
-* Database creation
+- [Webpacker](https://github.com/rails/webpacker) : Ensure Webpacker prerequisites and dependencies are installed and configured.
 
-* Database initialization
 
-* How to run the test suite
+### Install Gems:
 
-* Services (job queues, cache servers, search engines, etc.)
+`bundle install`
 
-* Deployment instructions
+### Create and seed database:
 
-* ...
+`rails db:migrate`
+
+`rails db:seed`
+
+## Managing Allow Lists
+Two Postcodes are set by default:
+
+- SH24 1AA
+- SH24 1AB
+
+To manage these and add other postcodes navigate to:
+
+`/postcode_allow_lists`
+
+## Dependencies
+This application has the following dependencies
+
+- [UK Postcode Gem](https://github.com/threedaymonk/uk_postcode) : For ensuring the correct format of given postcodes.
+- [Postcodes.io](https://postcodes.io) : To determine if a given postcode is in one of the service areas.
+
+
+## Versions:
+
+- Ruby 2.7.2
+- Rails 6.1.1
