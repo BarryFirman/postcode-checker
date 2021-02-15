@@ -47,4 +47,4 @@ This application has the following dependencies
 ## Versions:
 
 - Ruby 2.7.2
-- Rails 6.1.1
+- Rails ~> 6.1.1
